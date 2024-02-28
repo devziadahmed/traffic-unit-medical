@@ -5,19 +5,17 @@ import * as facemesh from "@tensorflow-models/facemesh";
 import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl"; // Or '@tensorflow/tfjs-backend-cpu' for CPU backend
 
-function Observer() {
+function Observer({ leftEyeClosed, setLeftEyeClosed, rightEyeClosed, setRightEyeClosed }) {
   // Set the backend
   tf.setBackend("webgl");
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [leftEyeClosed, setLeftEyeClosed] = useState(false);
-  const [rightEyeClosed, setRightEyeClosed] = useState(false);
 
   // Load facemesh model
   const runFacemesh = async () => {
     const net = await facemesh.load({
-      inputResolution: { width: 640, height: 480 },
+      inputResolution: { width: 350, height: 350 },
       scale: 0.8,
     });
     setInterval(() => {
@@ -111,7 +109,7 @@ function Observer() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="">
       <header className="App-header">
         <Webcam
           ref={webcamRef}
@@ -119,12 +117,12 @@ function Observer() {
             position: "absolute",
             marginLeft: "auto",
             marginRight: "auto",
-            left: 0,
-            right: 0,
+            top: "0px",
+            right: "0px",
             textAlign: "center",
             zIndex: 9,
-            width: 640,
-            height: 480,
+            width: 350,
+            height: 350,
           }}
           // Mirror the video feed for front-facing camera
         />
@@ -134,12 +132,12 @@ function Observer() {
             position: "absolute",
             marginLeft: "auto",
             marginRight: "auto",
-            left: 0,
-            right: 0,
+            top: "0px",
+            right: "0px",
             textAlign: "center",
             zIndex: 9,
-            width: 640,
-            height: 480,
+            width: 350,
+            height: 350,
           }}
         />
         <div
